@@ -1,0 +1,18 @@
+.equally-wrapper {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+
+    & .equally-toggle {
+        background: black;
+        color: white;
+        border: 2px solid white;
+        border-radius: 100%;
+        width: 46px;
+        height: 46px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+}
