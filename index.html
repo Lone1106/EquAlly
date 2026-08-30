@@ -2,12 +2,460 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="icon" type="image/svg+xml" href="/fav.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>EquAlly</title>
+        <title>EquAlly — Demo</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;500;600&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                --bg: #f3f4f6;
+                --card: #ffffff;
+                --text: #1a1a1a;
+                --muted-text: #6b7280;
+                --border: #e5e7eb;
+                --accent: #1a5fb4;
+                --accent-hover: #164e94;
+                --radius: 16px;
+                --shadow:
+                    0 1px 2px rgba(0, 0, 0, 0.04),
+                    0 12px 28px rgba(0, 0, 0, 0.06);
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    "Segoe UI",
+                    sans-serif;
+                color: var(--text);
+                background: var(--bg);
+                line-height: 1.6;
+            }
+
+            h1,
+            h2 {
+                font-family: "Jost", "Century Gothic", Futura, "Helvetica Neue", sans-serif;
+            }
+
+            a {
+                color: var(--accent);
+            }
+
+            header,
+            .page,
+            footer {
+                max-width: 760px;
+                margin: 0 auto;
+            }
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 22px 20px 16px;
+            }
+
+            header img {
+                display: block;
+                height: 24px;
+                width: auto;
+            }
+
+            nav {
+                display: flex;
+                gap: 4px;
+            }
+
+            nav a {
+                padding: 6px 14px;
+                border-radius: 999px;
+                font-size: 14px;
+                text-decoration: none;
+                color: var(--text);
+                transition: background 0.15s ease;
+            }
+
+            nav a:hover {
+                background: var(--border);
+            }
+
+            .page {
+                padding: 8px 20px 64px;
+            }
+
+            .eyebrow {
+                display: block;
+                margin-bottom: 6px;
+                color: var(--accent);
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+            }
+
+            .hero {
+                padding: 40px 4px 40px;
+            }
+
+            .hero h1 {
+                margin: 0 0 12px;
+                font-size: 2.6rem;
+                font-weight: 500;
+                letter-spacing: -0.02em;
+                line-height: 1.15;
+            }
+
+            .hero p {
+                margin: 0;
+                max-width: 54ch;
+                color: var(--muted-text);
+                font-size: 1.05rem;
+            }
+
+            .install {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-top: 28px;
+                padding: 6px 6px 6px 16px;
+                width: fit-content;
+                max-width: 100%;
+                background: #16181d;
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+            }
+
+            .install code {
+                overflow-x: auto;
+                color: #e8e8e8;
+                font-size: 13px;
+                white-space: pre;
+            }
+
+            .install button {
+                flex-shrink: 0;
+                padding: 8px 14px;
+                border: none;
+                border-radius: 8px;
+                background: #2a2d35;
+                color: #fff;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.15s ease;
+            }
+
+            .install button:hover {
+                background: #3a3e48;
+            }
+
+            .showcase-intro {
+                padding: 40px 4px 20px;
+            }
+
+            .showcase-intro h2 {
+                margin: 0 0 8px;
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
+
+            .showcase-intro p {
+                margin: 0;
+                max-width: 54ch;
+                color: var(--muted-text);
+            }
+
+            .card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+                padding: 24px;
+                margin-bottom: 20px;
+            }
+
+            .card h2 {
+                margin: 0 0 8px;
+                font-size: 1.05rem;
+                font-weight: 600;
+                font-family: inherit;
+            }
+
+            .card p {
+                margin: 0;
+                color: var(--muted-text);
+            }
+
+            .card p + p {
+                margin-top: 10px;
+            }
+
+            .muted-demo {
+                margin-top: 12px;
+                color: #b3b3b3;
+            }
+
+            .spinner-row {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                margin-top: 14px;
+            }
+
+            .spinner {
+                flex-shrink: 0;
+                width: 32px;
+                height: 32px;
+                border: 4px solid var(--border);
+                border-top-color: var(--accent);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .swatches {
+                display: flex;
+                gap: 16px;
+                margin-top: 16px;
+            }
+
+            .swatch {
+                text-align: center;
+            }
+
+            .swatch .chip {
+                width: 52px;
+                height: 52px;
+                border-radius: 12px;
+                margin-bottom: 6px;
+                box-shadow: var(--shadow);
+            }
+
+            .swatch .chip.red {
+                background: #e01e37;
+            }
+
+            .swatch .chip.green {
+                background: #2e933c;
+            }
+
+            .swatch .chip.blue {
+                background: #1a5fb4;
+            }
+
+            .swatch .chip.yellow {
+                background: #e6b800;
+            }
+
+            .swatch span {
+                font-size: 12px;
+                color: var(--muted-text);
+            }
+
+            form {
+                display: flex;
+                gap: 10px;
+                margin-top: 14px;
+            }
+
+            input,
+            button {
+                font: inherit;
+                border-radius: 10px;
+            }
+
+            input {
+                flex: 1;
+                padding: 10px 14px;
+                border: 1px solid var(--border);
+                background: var(--bg);
+            }
+
+            input:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 1px;
+            }
+
+            .card button {
+                padding: 10px 18px;
+                border: none;
+                background: var(--accent);
+                color: #fff;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.15s ease;
+            }
+
+            .card button:hover {
+                background: var(--accent-hover);
+            }
+
+            button:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 2px;
+            }
+
+            .lang-links {
+                display: flex;
+                gap: 8px;
+                margin-top: 14px;
+            }
+
+            .lang-links a {
+                padding: 8px 16px;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                text-decoration: none;
+                color: var(--text);
+                font-size: 13px;
+                font-weight: 600;
+                transition: background 0.15s ease;
+            }
+
+            .lang-links a:hover {
+                background: var(--bg);
+            }
+
+            footer {
+                padding: 20px;
+                border-top: 1px solid var(--border);
+                color: var(--muted-text);
+                font-size: 0.85rem;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
+        <header>
+            <img src="/equally-logo-lockup.svg" alt="EquAlly" />
+            <nav>
+                <a href="#showcase">Demo</a>
+                <a href="https://example.com" target="_blank" rel="noreferrer">External link</a>
+            </nav>
+        </header>
+
+        <div class="page">
+            <section class="hero">
+                <span class="eyebrow">Personal project · work in progress</span>
+                <h1>Accessible websites, one script tag away</h1>
+                <p>
+                    EquAlly is a lightweight accessibility widget you drop into any site. It adds a floating button
+                    that lets visitors turn on high contrast, a dyslexia-friendly font, larger text, reduced motion,
+                    and more — without you touching your site's design.
+                </p>
+                <div class="install">
+                    <code id="install-snippet">&lt;script src="equally.js"&gt;&lt;/script&gt;</code>
+                    <button type="button" id="copy-btn">Copy</button>
+                </div>
+            </section>
+
+            <section id="showcase" class="showcase-intro">
+                <span class="eyebrow">Live showcase</span>
+                <h2>Try every mode below</h2>
+                <p>Open the accessibility button in the corner and toggle each setting — the cards below react live.</p>
+            </section>
+
+            <main id="main">
+                <section class="card">
+                    <span class="eyebrow">Feature: High contrast</span>
+                    <h2>Low-contrast text</h2>
+                    <p>The line below is styled with deliberately poor contrast.</p>
+                    <p class="muted-demo">
+                        Turn on "High contrast" in the widget menu and this should become much easier to read.
+                    </p>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow">Feature: Seizure safe</span>
+                    <h2>Loading indicator</h2>
+                    <p>This spins constantly. Turning on "Seizure safe" in the widget should freeze it in place.</p>
+                    <div class="spinner-row">
+                        <div class="spinner" aria-hidden="true"></div>
+                        <span>Spinning…</span>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow">Feature: Color blind mode</span>
+                    <h2>Color swatches</h2>
+                    <p>Turning on "Color blind mode" should render these in greyscale.</p>
+                    <div class="swatches">
+                        <div class="swatch"><div class="chip red"></div><span>Red</span></div>
+                        <div class="swatch"><div class="chip green"></div><span>Green</span></div>
+                        <div class="swatch"><div class="chip blue"></div><span>Blue</span></div>
+                        <div class="swatch"><div class="chip yellow"></div><span>Yellow</span></div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow">Feature: Font size · Line height · Letter spacing</span>
+                    <h2>Longer paragraph</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer nec sapien
+                        vitae risus commodo sagittis. Praesent vestibulum, nunc at feugiat aliquet, sapien lorem
+                        dictum sem, ut gravida augue erat non nulla. These steppers should apply here instantly,
+                        without a page reload.
+                    </p>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow">General interaction</span>
+                    <h2>Sample form</h2>
+                    <p>Checks that the widget doesn't interfere with normal page interaction.</p>
+                    <form onsubmit="return false">
+                        <input type="text" placeholder="Type something…" aria-label="Sample text input" />
+                        <button type="submit">Submit</button>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow">Feature: Language auto-detect</span>
+                    <h2>Page language</h2>
+                    <p>
+                        The widget's own menu has an EN/DE switch, but it also auto-detects from this page's declared
+                        language on first visit. These links set <code>&lt;html lang&gt;</code> so you can test that
+                        default (a language picked manually in the widget menu is remembered and takes priority after
+                        that).
+                    </p>
+                    <div class="lang-links">
+                        <a href="?lang=en">Set page to EN</a>
+                        <a href="?lang=de">Set page to DE</a>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>EquAlly demo &amp; local test page — not part of the shipped widget bundle.</footer>
+
         <div id="app"></div>
+        <script>
+            const lang = new URLSearchParams(location.search).get("lang");
+            if (lang) document.documentElement.lang = lang;
+
+            const copyBtn = document.getElementById("copy-btn");
+            copyBtn.addEventListener("click", async () => {
+                const text = document.getElementById("install-snippet").textContent;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    copyBtn.textContent = "Copied!";
+                } catch {
+                    copyBtn.textContent = "Couldn't copy";
+                }
+                setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+            });
+        </script>
         <script type="module" src="/src/main.js"></script>
     </body>
 </html>

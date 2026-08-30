@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 244 48" width="244" height="48" role="img" aria-label="EquAlly">
+  <title>EquAlly logo — icon and wordmark</title>
+  <g fill="#111111" transform="translate(0 7)">
+    <path d="M17 0.5a16.5 16.5 0 1 0 0 33 16.5 16.5 0 0 0 0-33zm0 7a9.5 9.5 0 1 1 0 19 9.5 9.5 0 0 1 0-19z"></path>
+    <path d="M63 0.5a16.5 16.5 0 1 0 0 33 16.5 16.5 0 0 0 0-33zm0 7a9.5 9.5 0 1 1 0 19 9.5 9.5 0 0 1 0-19z"></path>
+    <rect x="28" y="13.5" width="24" height="7" rx="3.5"></rect>
+  </g>
+  <text x="96" y="34" fill="#111111" font-family="Jost, 'Century Gothic', Futura, 'Helvetica Neue', sans-serif" font-size="34" letter-spacing="-0.7">
+    <tspan font-weight="300">Equ</tspan><tspan font-weight="500">Ally</tspan>
+  </text>
+</svg>
