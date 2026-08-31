@@ -1,6 +1,8 @@
 export const translations = {
   en: {
     toggleLabel: "Accessibility options",
+    skipLink: "Skip to accessibility menu",
+    opensNewTab: "Opens in a new tab",
     menuTitle: "Accessibility",
     closeLabel: "Close accessibility menu",
     languageLabel: "Language",
@@ -19,10 +21,15 @@ export const translations = {
       dyslexic: "Dyslexia friendly font",
       "reduce-motion": "Seizure safe",
       readable: "Instant readability",
+      "big-cursor": "Large cursor",
+      "reading-guide": "Reading guide",
+      "reading-mask": "Reading mask",
     },
   },
   de: {
     toggleLabel: "Barrierefreiheit-Optionen",
+    skipLink: "Zum Barrierefreiheits-Menü springen",
+    opensNewTab: "Öffnet im neuen Tab",
     menuTitle: "Barrierefreiheit",
     closeLabel: "Menü schließen",
     languageLabel: "Sprache",
@@ -41,6 +48,9 @@ export const translations = {
       dyslexic: "Legasthenie-Schrift",
       "reduce-motion": "Reizarmer Modus",
       readable: "Sofort lesbar",
+      "big-cursor": "Großer Mauszeiger",
+      "reading-guide": "Leselineal",
+      "reading-mask": "Lesemaske",
     },
   },
 };

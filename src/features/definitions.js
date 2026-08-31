@@ -62,4 +62,22 @@ export const features = [
     className: "equally-readable",
     default: false,
   },
+  {
+    id: "big-cursor",
+    type: "toggle",
+    className: "equally-big-cursor",
+    default: false,
+  },
+  {
+    id: "reading-guide",
+    type: "toggle",
+    className: "equally-reading-guide-active",
+    default: false,
+  },
+  {
+    id: "reading-mask",
+    type: "toggle",
+    className: "equally-reading-mask-active",
+    default: false,
+  },
 ];
