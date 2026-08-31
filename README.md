@@ -13,6 +13,12 @@ Add this script tag right before the closing `</body>` tag of your page:
 <script src="equally.js"></script>
 ```
 
+Or load it straight from the CDN instead of self-hosting the built file:
+
+```html
+<script src="https://equally.janrei.de/dist/equally.iife.js" defer></script>
+```
+
 That's it — the accessibility menu appears automatically.
 
 ### Configuration
@@ -67,35 +73,21 @@ feature above.
 
 ## Project structure
 
-- **`src/main.js`** — Entry point. Reads `window.Equally` as config, boots `Equally` once
-  the DOM is ready, then replaces `window.Equally` with the class itself.
-- **`src/Equally.js`** — Top-level controller. Wires up the shadow host, effects host,
-  settings store, feature manager, and panel.
-- **`src/ShadowHost.js`** — Creates the `#equally-host` element, attaches an open Shadow
-  DOM to it, and injects `styles.css` so the widget's styling is isolated from the host
-  page.
-- **`src/EffectsHost.js`** — Injects `effects.css` into the host page's own `<head>`
-  (once) for effects — like reduced motion — that must apply outside the shadow root.
-- **`src/FeatureManager.js`** — Owns feature state: reads/writes values via
-  `SettingsStore`, applies each feature to the DOM (CSS classes/vars/filters), and
-  notifies listeners (the `Panel`) on change.
-- **`src/SettingsStore.js`** — Thin `localStorage` wrapper, namespaced per key, that
-  persists a visitor's chosen settings across page loads.
-- **`src/features/definitions.js`** — Declarative list of every feature (id, type,
-  default, min/max/step for steppers, CSS class/filter for toggles). Add a new
-  accessibility feature here.
-- **`src/components/Panel.js`** — Builds the visible menu UI (toggle button + panel) as
-  plain DOM nodes, and wires up open/close, locale switching, and each row to the
-  `FeatureManager`.
-- **`src/i18n/index.js`** — Locale resolution (page `lang` → browser language → default)
-  and the translator factory used by `Panel`.
-- **`src/i18n/translations.js`** — The EN/DE string tables (labels, section headers,
-  feature names).
-- **`src/styles/styles.css`** — Shadow DOM styling for the widget itself (menu, toggle,
-  rows, switches, etc.).
-- **`src/styles/effects.css`** — Host-page styling for effects that can't live in the
-  shadow root (e.g. globally disabling animations).
-- **`src/files/equally-icon.svg`** — Static icon asset.
+| File                          | What it does                                    |
+| ------------------------------ | ------------------------------------------------ |
+| `src/main.js`                  | Entry point — boots `Equally` on `window.Equally` config |
+| `src/Equally.js`                | Top-level controller wiring everything together |
+| `src/ShadowHost.js`             | Creates the isolated Shadow DOM and injects widget styles |
+| `src/EffectsHost.js`            | Injects effects styles into the host page's `<head>` |
+| `src/FeatureManager.js`         | Owns feature state and applies it to the DOM    |
+| `src/SettingsStore.js`          | `localStorage` wrapper for persisting settings  |
+| `src/features/definitions.js`   | Declarative list of all accessibility features  |
+| `src/components/Panel.js`       | Builds and wires up the menu UI                 |
+| `src/i18n/index.js`             | Locale resolution and translator factory        |
+| `src/i18n/translations.js`      | EN/DE string tables                             |
+| `src/styles/styles.css`         | Shadow DOM styling for the widget                |
+| `src/styles/effects.css`        | Host-page styling for effects like reduced motion |
+| `src/files/equally-icon.svg`    | Static icon asset                                |
 
 ## License
 
