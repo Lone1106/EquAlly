@@ -92,6 +92,14 @@ export class Panel {
 
     heading.append(this.avatarEl, this.titleEl);
 
+    this.quickResetEl = document.createElement("button");
+    this.quickResetEl.type = "button";
+    this.quickResetEl.className = "equally-quick-reset";
+    this.quickResetEl.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      `;
+    this.quickResetEl.addEventListener("click", () => this.manager.reset());
+
     this.closeEl = document.createElement("button");
     this.closeEl.type = "button";
     this.closeEl.className = "equally-close";
@@ -100,11 +108,19 @@ export class Panel {
       `;
     this.closeEl.addEventListener("click", () => this.close());
 
-    this.headerEl.append(heading, this.closeEl);
+    const headerActions = document.createElement("div");
+    headerActions.className = "equally-header-actions";
+    headerActions.append(this.quickResetEl, this.closeEl);
+
+    this.headerEl.append(heading, headerActions);
     menu.appendChild(this.headerEl);
 
+    this.bodyEl = document.createElement("div");
+    this.bodyEl.className = "equally-menu-body";
+    menu.appendChild(this.bodyEl);
+
     this.sectionDisplayEl = this.#createSectionLabel();
-    menu.appendChild(this.sectionDisplayEl);
+    this.bodyEl.appendChild(this.sectionDisplayEl);
 
     this.displayGroupEl = document.createElement("div");
     this.displayGroupEl.className = "equally-group";
@@ -118,10 +134,10 @@ export class Panel {
       this.rows.set(feature.id, row);
       this.displayGroupEl.appendChild(row.el);
     }
-    menu.appendChild(this.displayGroupEl);
+    this.bodyEl.appendChild(this.displayGroupEl);
 
     this.sectionAidsEl = this.#createSectionLabel();
-    menu.appendChild(this.sectionAidsEl);
+    this.bodyEl.appendChild(this.sectionAidsEl);
 
     this.aidsListEl = document.createElement("div");
     this.aidsListEl.className = "equally-tile-list";
@@ -132,13 +148,13 @@ export class Panel {
       this.rows.set(feature.id, row);
       this.aidsListEl.appendChild(row.el);
     }
-    menu.appendChild(this.aidsListEl);
+    this.bodyEl.appendChild(this.aidsListEl);
 
     this.resetEl = document.createElement("button");
     this.resetEl.type = "button";
     this.resetEl.className = "equally-reset";
     this.resetEl.addEventListener("click", () => this.manager.reset());
-    menu.appendChild(this.resetEl);
+    this.bodyEl.appendChild(this.resetEl);
 
     this.creditEl = document.createElement("a");
     this.creditEl.className = "equally-credit";
@@ -152,7 +168,7 @@ export class Panel {
     this.creditBrandEl.textContent = "EquAlly";
     this.creditEl.append(this.creditPrefixEl, this.creditBrandEl);
 
-    menu.appendChild(this.creditEl);
+    this.bodyEl.appendChild(this.creditEl);
 
     this.#applyLocale(this.locale, menu);
 
@@ -206,6 +222,7 @@ export class Panel {
     menu.setAttribute("aria-label", t.t("menuTitle"));
     this.titleEl.textContent = t.t("menuTitle");
     this.closeEl.setAttribute("aria-label", t.t("closeLabel"));
+    this.quickResetEl.setAttribute("aria-label", t.t("resetLabel"));
     this.sectionDisplayEl.textContent = t.t("sectionDisplay");
     this.sectionAidsEl.textContent = t.t("sectionReadingAids");
     this.localeLabelEl.textContent = t.t("languageLabel");

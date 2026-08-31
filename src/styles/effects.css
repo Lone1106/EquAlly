@@ -18,7 +18,8 @@ html.equally-letter-spacing-active body {
 }
 
 html.equally-dyslexic,
-html.equally-dyslexic body {
+html.equally-dyslexic body,
+html.equally-dyslexic body * {
     font-family: "OpenDyslexic", "Comic Sans MS", cursive, sans-serif !important;
 }
 
