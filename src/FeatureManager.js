@@ -64,10 +64,13 @@ export class FeatureManager {
       return;
     }
 
-    if (value === feature.default) {
-      this.root.style.removeProperty(feature.cssVar);
-    } else {
+    const isActive = value !== feature.default;
+    this.root.classList.toggle(`equally-${feature.id}-active`, isActive);
+
+    if (isActive) {
       this.root.style.setProperty(feature.cssVar, `${value}${feature.unit}`);
+    } else {
+      this.root.style.removeProperty(feature.cssVar);
     }
   }
 

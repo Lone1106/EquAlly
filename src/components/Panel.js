@@ -107,6 +107,13 @@ export class Panel {
     this.resetEl.addEventListener("click", () => this.manager.reset());
     menu.appendChild(this.resetEl);
 
+    this.creditEl = document.createElement("a");
+    this.creditEl.className = "equally-credit";
+    this.creditEl.href = "https://janrei.de";
+    this.creditEl.target = "_blank";
+    this.creditEl.rel = "noopener noreferrer";
+    menu.appendChild(this.creditEl);
+
     this.#applyLocale(this.locale, menu);
 
     return menu;
@@ -156,6 +163,7 @@ export class Panel {
     this.localeLabelEl.textContent = t.t("languageLabel");
     this.localeGroupEl.setAttribute("aria-label", t.t("languageLabel"));
     this.resetEl.textContent = t.t("resetLabel");
+    this.creditEl.textContent = t.t("creditLabel");
 
     for (const [code, button] of this.localeButtons) {
       button.setAttribute("aria-pressed", String(code === locale));

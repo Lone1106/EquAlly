@@ -26,10 +26,10 @@
         align-items: center;
         width: 52px;
         height: 52px;
-        border: none;
+        border: 3px solid var(--equally-dark);
         border-radius: 50%;
-        background: var(--equally-dark);
-        color: var(--equally-light);
+        background: var(--equally-light);
+        color: var(--equally-dark);
         box-shadow: 0 10px 24px var(--equally-shadow);
         cursor: pointer;
         transition:
@@ -37,8 +37,13 @@
             box-shadow 0.15s ease,
             background 0.15s ease;
 
+        & svg {
+            width: 32px;
+            height: 32px;
+        }
+
         &:hover {
-            background: color-mix(in srgb, var(--equally-dark) 85%, var(--equally-light));
+            background: var(--equally-hover);
             box-shadow: 0 12px 28px var(--equally-shadow);
         }
 
@@ -293,6 +298,24 @@
 
         &:hover {
             background: var(--equally-hover);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--equally-dark);
+            outline-offset: 2px;
+        }
+    }
+
+    & .equally-credit {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 9px;
+        color: color-mix(in srgb, var(--equally-dark) 55%, transparent);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
         }
 
         &:focus-visible {

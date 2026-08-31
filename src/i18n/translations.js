@@ -5,6 +5,7 @@ export const translations = {
     closeLabel: "Close accessibility menu",
     languageLabel: "Language",
     resetLabel: "Reset all",
+    creditLabel: "Maintained by Jan",
     increase: (label) => `Increase ${label}`,
     decrease: (label) => `Decrease ${label}`,
     features: {
@@ -24,6 +25,7 @@ export const translations = {
     closeLabel: "Menü schließen",
     languageLabel: "Sprache",
     resetLabel: "Alles zurücksetzen",
+    creditLabel: "Betreut von Jan",
     increase: (label) => `${label} erhöhen`,
     decrease: (label) => `${label} verringern`,
     features: {

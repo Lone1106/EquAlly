@@ -1,10 +1,20 @@
-html {
-    font-size: calc(100% * var(--equally-font-scale, 1));
+/*
+ * Each of these is scoped behind an "-active" class that FeatureManager only
+ * adds while the feature's value differs from its default. Without that gate
+ * the fallback in var(--x, fallback) still resolves to a real value and this
+ * stylesheet — injected into the host page's <head>, not the shadow DOM —
+ * would override the host page's own html/body typography at rest.
+ */
+html.equally-font-size-active {
+    font-size: calc(100% * var(--equally-font-scale));
 }
 
-body {
-    line-height: var(--equally-line-height, normal);
-    letter-spacing: var(--equally-letter-spacing, normal);
+html.equally-line-height-active body {
+    line-height: var(--equally-line-height);
+}
+
+html.equally-letter-spacing-active body {
+    letter-spacing: var(--equally-letter-spacing);
 }
 
 html.equally-dyslexic,
