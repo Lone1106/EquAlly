@@ -1,4 +1,5 @@
 import { createTranslator } from "../i18n/index.js";
+import { ScrollLock } from "../ScrollLock.js";
 
 export class Panel {
   constructor({ features, manager, locale, locales, onLocaleChange }) {
@@ -11,6 +12,7 @@ export class Panel {
     this.isOpen = false;
     this.rows = new Map();
     this.localeButtons = new Map();
+    this.scrollLock = new ScrollLock();
   }
 
   render() {
@@ -39,6 +41,7 @@ export class Panel {
     this.menuEl.inert = false;
     this.menuEl.classList.add("is-open");
     this.toggleEl.setAttribute("aria-expanded", "true");
+    this.scrollLock.lock(this.menuEl);
   }
 
   close() {
@@ -46,6 +49,7 @@ export class Panel {
     this.menuEl.classList.remove("is-open");
     this.menuEl.inert = true;
     this.toggleEl.setAttribute("aria-expanded", "false");
+    this.scrollLock.unlock();
   }
 
   #createToggle() {
