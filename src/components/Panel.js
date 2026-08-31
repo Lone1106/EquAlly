@@ -18,12 +18,15 @@ export class Panel {
     wrapper.className = "equally-wrapper";
 
     this.toggleEl = this.#createToggle();
-    this.backdropEl = this.#createBackdrop();
     this.menuEl = this.#createMenu();
-    wrapper.append(this.toggleEl, this.backdropEl, this.menuEl);
+    wrapper.append(this.toggleEl, this.menuEl);
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && this.isOpen) this.close();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (this.isOpen && !event.composedPath().includes(wrapper)) this.close();
     });
 
     this.manager.onChange((id) => this.rows.get(id)?.sync());
@@ -35,24 +38,14 @@ export class Panel {
     this.isOpen = true;
     this.menuEl.inert = false;
     this.menuEl.classList.add("is-open");
-    this.backdropEl.classList.add("is-open");
     this.toggleEl.setAttribute("aria-expanded", "true");
   }
 
   close() {
     this.isOpen = false;
     this.menuEl.classList.remove("is-open");
-    this.backdropEl.classList.remove("is-open");
     this.menuEl.inert = true;
     this.toggleEl.setAttribute("aria-expanded", "false");
-  }
-
-  #createBackdrop() {
-    const backdrop = document.createElement("div");
-    backdrop.className = "equally-backdrop";
-    backdrop.setAttribute("aria-hidden", "true");
-    backdrop.addEventListener("click", () => this.close());
-    return backdrop;
   }
 
   #createToggle() {
@@ -80,8 +73,20 @@ export class Panel {
     this.headerEl = document.createElement("div");
     this.headerEl.className = "equally-menu-header";
 
+    const heading = document.createElement("div");
+    heading.className = "equally-menu-heading";
+
+    this.avatarEl = document.createElement("div");
+    this.avatarEl.className = "equally-avatar";
+    this.avatarEl.setAttribute("aria-hidden", "true");
+    this.avatarEl.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 2 6-2"/><path d="M12 10v4"/></svg>
+      `;
+
     this.titleEl = document.createElement("h2");
     this.titleEl.className = "equally-menu-title";
+
+    heading.append(this.avatarEl, this.titleEl);
 
     this.closeEl = document.createElement("button");
     this.closeEl.type = "button";
@@ -91,15 +96,39 @@ export class Panel {
       `;
     this.closeEl.addEventListener("click", () => this.close());
 
-    this.headerEl.append(this.titleEl, this.closeEl);
+    this.headerEl.append(heading, this.closeEl);
     menu.appendChild(this.headerEl);
-    menu.appendChild(this.#createLocaleRow());
 
-    for (const feature of this.features) {
-      const row = feature.type === "toggle" ? this.#createToggleRow(feature) : this.#createStepperRow(feature);
+    this.sectionDisplayEl = this.#createSectionLabel();
+    menu.appendChild(this.sectionDisplayEl);
+
+    this.displayGroupEl = document.createElement("div");
+    this.displayGroupEl.className = "equally-group";
+    this.displayGroupEl.appendChild(this.#createLocaleRow());
+
+    const steppers = this.features.filter((feature) => feature.type === "stepper");
+    const toggles = this.features.filter((feature) => feature.type === "toggle");
+
+    for (const feature of steppers) {
+      const row = this.#createStepperRow(feature);
       this.rows.set(feature.id, row);
-      menu.appendChild(row.el);
+      this.displayGroupEl.appendChild(row.el);
     }
+    menu.appendChild(this.displayGroupEl);
+
+    this.sectionAidsEl = this.#createSectionLabel();
+    menu.appendChild(this.sectionAidsEl);
+
+    this.aidsListEl = document.createElement("div");
+    this.aidsListEl.className = "equally-tile-list";
+
+    for (const feature of toggles) {
+      const row = this.#createToggleRow(feature);
+      row.el.classList.add("equally-tile");
+      this.rows.set(feature.id, row);
+      this.aidsListEl.appendChild(row.el);
+    }
+    menu.appendChild(this.aidsListEl);
 
     this.resetEl = document.createElement("button");
     this.resetEl.type = "button";
@@ -109,14 +138,27 @@ export class Panel {
 
     this.creditEl = document.createElement("a");
     this.creditEl.className = "equally-credit";
-    this.creditEl.href = "https://janrei.de";
+    this.creditEl.href = "https://equally.janrei.de/";
     this.creditEl.target = "_blank";
     this.creditEl.rel = "noopener noreferrer";
+
+    this.creditPrefixEl = document.createTextNode("");
+    this.creditBrandEl = document.createElement("span");
+    this.creditBrandEl.className = "equally-credit-brand";
+    this.creditBrandEl.textContent = "EquAlly";
+    this.creditEl.append(this.creditPrefixEl, this.creditBrandEl);
+
     menu.appendChild(this.creditEl);
 
     this.#applyLocale(this.locale, menu);
 
     return menu;
+  }
+
+  #createSectionLabel() {
+    const el = document.createElement("p");
+    el.className = "equally-section-label";
+    return el;
   }
 
   #createLocaleRow() {
@@ -160,10 +202,12 @@ export class Panel {
     menu.setAttribute("aria-label", t.t("menuTitle"));
     this.titleEl.textContent = t.t("menuTitle");
     this.closeEl.setAttribute("aria-label", t.t("closeLabel"));
+    this.sectionDisplayEl.textContent = t.t("sectionDisplay");
+    this.sectionAidsEl.textContent = t.t("sectionReadingAids");
     this.localeLabelEl.textContent = t.t("languageLabel");
     this.localeGroupEl.setAttribute("aria-label", t.t("languageLabel"));
     this.resetEl.textContent = t.t("resetLabel");
-    this.creditEl.textContent = t.t("creditLabel");
+    this.creditPrefixEl.textContent = t.t("creditPrefix");
 
     for (const [code, button] of this.localeButtons) {
       button.setAttribute("aria-pressed", String(code === locale));

@@ -65,6 +65,38 @@ npm run preview   # preview the production build
 The demo page (`index.html`) doubles as a live showcase and a manual test page for every
 feature above.
 
+## Project structure
+
+- **`src/main.js`** — Entry point. Reads `window.Equally` as config, boots `Equally` once
+  the DOM is ready, then replaces `window.Equally` with the class itself.
+- **`src/Equally.js`** — Top-level controller. Wires up the shadow host, effects host,
+  settings store, feature manager, and panel.
+- **`src/ShadowHost.js`** — Creates the `#equally-host` element, attaches an open Shadow
+  DOM to it, and injects `styles.css` so the widget's styling is isolated from the host
+  page.
+- **`src/EffectsHost.js`** — Injects `effects.css` into the host page's own `<head>`
+  (once) for effects — like reduced motion — that must apply outside the shadow root.
+- **`src/FeatureManager.js`** — Owns feature state: reads/writes values via
+  `SettingsStore`, applies each feature to the DOM (CSS classes/vars/filters), and
+  notifies listeners (the `Panel`) on change.
+- **`src/SettingsStore.js`** — Thin `localStorage` wrapper, namespaced per key, that
+  persists a visitor's chosen settings across page loads.
+- **`src/features/definitions.js`** — Declarative list of every feature (id, type,
+  default, min/max/step for steppers, CSS class/filter for toggles). Add a new
+  accessibility feature here.
+- **`src/components/Panel.js`** — Builds the visible menu UI (toggle button + panel) as
+  plain DOM nodes, and wires up open/close, locale switching, and each row to the
+  `FeatureManager`.
+- **`src/i18n/index.js`** — Locale resolution (page `lang` → browser language → default)
+  and the translator factory used by `Panel`.
+- **`src/i18n/translations.js`** — The EN/DE string tables (labels, section headers,
+  feature names).
+- **`src/styles/styles.css`** — Shadow DOM styling for the widget itself (menu, toggle,
+  rows, switches, etc.).
+- **`src/styles/effects.css`** — Host-page styling for effects that can't live in the
+  shadow root (e.g. globally disabling animations).
+- **`src/files/equally-icon.svg`** — Static icon asset.
+
 ## License
 
 [MIT](LICENSE.md)

@@ -5,7 +5,9 @@ export const translations = {
     closeLabel: "Close accessibility menu",
     languageLabel: "Language",
     resetLabel: "Reset all",
-    creditLabel: "Maintained by Jan",
+    creditPrefix: "Powered by ",
+    sectionDisplay: "Display",
+    sectionReadingAids: "Reading aids",
     increase: (label) => `Increase ${label}`,
     decrease: (label) => `Decrease ${label}`,
     features: {
@@ -25,7 +27,9 @@ export const translations = {
     closeLabel: "Menü schließen",
     languageLabel: "Sprache",
     resetLabel: "Alles zurücksetzen",
-    creditLabel: "Betreut von Jan",
+    creditPrefix: "Powered by ",
+    sectionDisplay: "Darstellung",
+    sectionReadingAids: "Lesehilfen",
     increase: (label) => `${label} erhöhen`,
     decrease: (label) => `${label} verringern`,
     features: {
