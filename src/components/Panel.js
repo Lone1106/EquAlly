@@ -1,4 +1,5 @@
 import { createTranslator } from "../i18n/index.js";
+import { featureIcons } from "../features/icons.js";
 
 export class Panel {
   constructor({ features, manager, locale, locales, onLocaleChange }) {
@@ -123,7 +124,12 @@ export class Panel {
     this.displayGroupEl.appendChild(this.#createLocaleRow());
 
     const steppers = this.features.filter((feature) => feature.type === "stepper");
-    const toggles = this.features.filter((feature) => feature.type === "toggle");
+    const visualAids = this.features.filter(
+      (feature) => feature.type === "toggle" && feature.section === "visual",
+    );
+    const readingAids = this.features.filter(
+      (feature) => feature.type === "toggle" && feature.section === "reading",
+    );
 
     for (const feature of steppers) {
       const row = this.#createStepperRow(feature);
@@ -132,19 +138,15 @@ export class Panel {
     }
     this.bodyEl.appendChild(this.displayGroupEl);
 
-    this.sectionAidsEl = this.#createSectionLabel();
-    this.bodyEl.appendChild(this.sectionAidsEl);
+    this.sectionVisualEl = this.#createSectionLabel();
+    this.bodyEl.appendChild(this.sectionVisualEl);
+    this.visualGridEl = this.#createAidGrid(visualAids);
+    this.bodyEl.appendChild(this.visualGridEl);
 
-    this.aidsListEl = document.createElement("div");
-    this.aidsListEl.className = "equally-tile-list";
-
-    for (const feature of toggles) {
-      const row = this.#createToggleRow(feature);
-      row.el.classList.add("equally-tile");
-      this.rows.set(feature.id, row);
-      this.aidsListEl.appendChild(row.el);
-    }
-    this.bodyEl.appendChild(this.aidsListEl);
+    this.sectionReadingEl = this.#createSectionLabel();
+    this.bodyEl.appendChild(this.sectionReadingEl);
+    this.readingGridEl = this.#createAidGrid(readingAids);
+    this.bodyEl.appendChild(this.readingGridEl);
 
     this.resetEl = document.createElement("button");
     this.resetEl.type = "button";
@@ -220,7 +222,8 @@ export class Panel {
     this.closeEl.setAttribute("aria-label", t.t("closeLabel"));
     this.quickResetEl.setAttribute("aria-label", t.t("resetLabel"));
     this.sectionDisplayEl.textContent = t.t("sectionDisplay");
-    this.sectionAidsEl.textContent = t.t("sectionReadingAids");
+    this.sectionVisualEl.textContent = t.t("sectionVisualAids");
+    this.sectionReadingEl.textContent = t.t("sectionReadingAids");
     this.localeLabelEl.textContent = t.t("languageLabel");
     this.localeGroupEl.setAttribute("aria-label", t.t("languageLabel"));
     this.resetEl.textContent = t.t("resetLabel");
@@ -233,28 +236,41 @@ export class Panel {
     for (const row of this.rows.values()) row.relabel(t);
   }
 
-  #createToggleRow(feature) {
-    const row = document.createElement("div");
-    row.className = "equally-row";
+  #createAidGrid(aidFeatures) {
+    const grid = document.createElement("div");
+    grid.className = "equally-aid-grid";
+
+    for (const feature of aidFeatures) {
+      const card = this.#createAidCard(feature);
+      this.rows.set(feature.id, card);
+      grid.appendChild(card.el);
+    }
+
+    return grid;
+  }
+
+  #createAidCard(feature) {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "equally-aid-card";
+    card.setAttribute("aria-pressed", String(this.manager.get(feature.id)));
+    card.addEventListener("click", () => this.manager.toggle(feature.id));
+
+    const iconEl = document.createElement("span");
+    iconEl.className = "equally-aid-icon";
+    iconEl.setAttribute("aria-hidden", "true");
+    iconEl.innerHTML = featureIcons[feature.id] ?? "";
 
     const labelEl = document.createElement("span");
-    labelEl.className = "equally-row-label";
+    labelEl.className = "equally-aid-label";
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "equally-switch";
-    button.setAttribute("aria-pressed", String(this.manager.get(feature.id)));
-    button.addEventListener("click", () => this.manager.toggle(feature.id));
-
-    row.append(labelEl, button);
+    card.append(iconEl, labelEl);
 
     return {
-      el: row,
-      sync: () => button.setAttribute("aria-pressed", String(this.manager.get(feature.id))),
+      el: card,
+      sync: () => card.setAttribute("aria-pressed", String(this.manager.get(feature.id))),
       relabel: (t) => {
-        const label = t.featureLabel(feature.id);
-        labelEl.textContent = label;
-        button.setAttribute("aria-label", label);
+        labelEl.textContent = t.featureLabel(feature.id);
       },
     };
   }

@@ -9,6 +9,7 @@ import { SkipLink } from "./components/SkipLink.js";
 import { LinkTooltip } from "./components/LinkTooltip.js";
 import { ReadingGuide } from "./components/ReadingGuide.js";
 import { ReadingMask } from "./components/ReadingMask.js";
+import { NavigationMode } from "./components/NavigationMode.js";
 
 export class Equally {
   constructor(config = {}) {
@@ -54,20 +55,29 @@ export class Equally {
         this.store.set("locale", code);
         skipLink.setLocale(code);
         tooltip.setLocale(code);
+        navigationMode.setLocale(code);
       },
     });
     const readingGuide = new ReadingGuide();
     const readingMask = new ReadingMask();
 
     const wrapper = panel.render();
+    const navigationMode = new NavigationMode({
+      locale,
+      exclude: wrapper,
+      onExit: () => this.manager.toggle("nav-mode"),
+    });
+
     wrapper.appendChild(tooltip.render());
     wrapper.appendChild(readingGuide.render());
     wrapper.appendChild(readingMask.render());
+    wrapper.appendChild(navigationMode.render());
     this.host.root.appendChild(wrapper);
     tooltip.mount();
 
     this.#syncOverlay("reading-guide", readingGuide);
     this.#syncOverlay("reading-mask", readingMask);
+    this.#syncOverlay("nav-mode", navigationMode);
   }
 
   #syncOverlay(id, controller) {

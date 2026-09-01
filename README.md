@@ -55,6 +55,7 @@ The table below is toggled from the menu and persists across page loads via `loc
 | Large cursor           | Swaps in a bigger, high-contrast mouse cursor |
 | Reading guide          | A ruler that follows the mouse to help track the current line |
 | Reading mask           | Dims the page except for a band around the cursor |
+| Navigation mode        | Collects every link, button, and heading so you can jump between them with the arrow keys or Tab / Shift+Tab, tracked by a highlight outline and a screen reader announcement |
 
 A couple more affordances are always on and don't need to be toggled:
 
@@ -95,6 +96,7 @@ feature above.
 | `src/components/LinkTooltip.js` | Shows the new-tab warning tooltip on hover/focus |
 | `src/components/ReadingGuide.js` | The cursor-following ruler for the reading guide feature |
 | `src/components/ReadingMask.js` | The dimming overlay for the reading mask feature |
+| `src/components/NavigationMode.js` | Arrow-key stepper through the page's links, buttons, and headings |
 | `src/i18n/index.js`             | Locale resolution and translator factory        |
 | `src/i18n/translations.js`      | EN/DE string tables                             |
 | `src/styles/styles.css`         | Shadow DOM styling for the widget                |
