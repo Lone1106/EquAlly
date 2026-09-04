@@ -18,6 +18,7 @@ export const translations = {
     navRoleHeading: "Heading",
     navPosition: (role, index, total, name) => `${role} ${index} of ${total}${name ? `: ${name}` : ""}`,
     navEmpty: "No navigable items found on this page",
+    readAloudHint: "Click any text to hear it read aloud. Press Escape to stop.",
     features: {
       "font-size": "Font size",
       "line-height": "Line height",
@@ -27,10 +28,13 @@ export const translations = {
       dyslexic: "Dyslexia friendly font",
       "reduce-motion": "Seizure safe",
       readable: "Instant readability",
+      "highlight-links": "Highlight links",
+      "left-align": "Left-aligned text",
       "big-cursor": "Large cursor",
       "reading-guide": "Reading guide",
       "reading-mask": "Reading mask",
       "nav-mode": "Navigation mode",
+      "read-aloud": "Read aloud",
     },
   },
   de: {
@@ -52,6 +56,7 @@ export const translations = {
     navRoleHeading: "Überschrift",
     navPosition: (role, index, total, name) => `${role} ${index} von ${total}${name ? `: ${name}` : ""}`,
     navEmpty: "Keine navigierbaren Elemente auf dieser Seite gefunden",
+    readAloudHint: "Klicke auf einen Text, um ihn vorlesen zu lassen. Escape zum Stoppen.",
     features: {
       "font-size": "Schriftgröße",
       "line-height": "Zeilenhöhe",
@@ -61,10 +66,13 @@ export const translations = {
       dyslexic: "Legasthenie-Schrift",
       "reduce-motion": "Reizarmer Modus",
       readable: "Sofort lesbar",
+      "highlight-links": "Links hervorheben",
+      "left-align": "Linksbündiger Text",
       "big-cursor": "Großer Mauszeiger",
       "reading-guide": "Leselineal",
       "reading-mask": "Lesemaske",
       "nav-mode": "Navigationsmodus",
+      "read-aloud": "Vorlesen",
     },
   },
 };

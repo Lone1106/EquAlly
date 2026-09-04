@@ -50,12 +50,15 @@ The table below is toggled from the menu and persists across page loads via `loc
 | High contrast          | Boosts contrast across the page               |
 | Color blind mode       | Renders the page in greyscale                 |
 | Dyslexia friendly font | Switches body text to a more legible typeface |
-| Seizure safe           | Disables animations and transitions           |
+| Seizure safe           | Disables animations and transitions, and pauses autoplaying video/audio |
 | Instant readability    | Forces high-contrast white-on-black text      |
+| Highlight links        | Outlines and underlines every link so they stand out from body text |
+| Left-aligned text      | Forces left-aligned text, overriding centered or justified layouts |
 | Large cursor           | Swaps in a bigger, high-contrast mouse cursor |
 | Reading guide          | A ruler that follows the mouse to help track the current line |
 | Reading mask           | Dims the page except for a band around the cursor |
 | Navigation mode        | Collects every link, button, and heading so you can jump between them with the arrow keys or Tab / Shift+Tab, tracked by a highlight outline and a screen reader announcement |
+| Read aloud             | Click any paragraph, heading, or link to hear it read aloud via the browser's built-in speech synthesis |
 
 A couple more affordances are always on and don't need to be toggled:
 
@@ -78,7 +81,9 @@ npm run preview   # preview the production build
 ```
 
 The demo page (`index.html`) doubles as a live showcase and a manual test page for every
-feature above.
+feature above. It has its own EN/DE copy (independent of the widget's own language switch)
+via the "Switch page to EN/DE" buttons at the bottom, which also set `<html lang>` so you
+can test the widget's language auto-detection from a clean state.
 
 ## Project structure
 
@@ -91,12 +96,15 @@ feature above.
 | `src/FeatureManager.js`         | Owns feature state and applies it to the DOM    |
 | `src/SettingsStore.js`          | `localStorage` wrapper for persisting settings  |
 | `src/features/definitions.js`   | Declarative list of all accessibility features  |
+| `src/features/icons.js`         | Icon SVGs for each feature's row in the menu    |
 | `src/components/Panel.js`       | Builds and wires up the menu UI                 |
 | `src/components/SkipLink.js`    | Renders the "skip to accessibility menu" link   |
 | `src/components/LinkTooltip.js` | Shows the new-tab warning tooltip on hover/focus |
 | `src/components/ReadingGuide.js` | The cursor-following ruler for the reading guide feature |
 | `src/components/ReadingMask.js` | The dimming overlay for the reading mask feature |
 | `src/components/NavigationMode.js` | Arrow-key stepper through the page's links, buttons, and headings |
+| `src/components/AutoplayGuard.js`  | Pauses autoplaying video/audio/embeds while seizure safe mode is on |
+| `src/components/ReadAloud.js`      | Click-to-read text-to-speech, built on the browser's `speechSynthesis` API |
 | `src/i18n/index.js`             | Locale resolution and translator factory        |
 | `src/i18n/translations.js`      | EN/DE string tables                             |
 | `src/styles/styles.css`         | Shadow DOM styling for the widget                |

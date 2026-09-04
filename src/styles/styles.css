@@ -10,10 +10,14 @@
     --equally-text: #f5f5f7;
     --equally-muted: #96969e;
     --equally-track: #2f2f35;
+    --equally-track-on: #f5f5f7;
+    --equally-knob: #f5f5f7;
+    --equally-knob-on: #19191c;
     --equally-accent: #f5f5f7;
     --equally-accent-fg: #19191c;
     --equally-shadow: rgba(0, 0, 0, 0.45);
     --equally-nav-outline: #3b82f6;
+    --equally-read-outline: #22c55e;
 
     position: fixed;
     right: 24px;
@@ -224,50 +228,22 @@
         }
     }
 
-    & .equally-aid-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+    & .equally-aid-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         margin-bottom: 22px;
     }
 
-    & .equally-aid-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 10px;
-        width: 100%;
-        height: 100%;
-        padding: 12px 10px;
-        text-align: center;
+    & .equally-aid-row {
+        padding: 12px 16px;
         border: 1px solid var(--equally-border);
         border-radius: 16px;
         background: var(--equally-surface);
-        color: var(--equally-text);
-        cursor: pointer;
-        transition:
-            background 0.15s ease,
-            border-color 0.15s ease,
-            color 0.15s ease;
+        transition: background 0.15s ease;
 
         &:hover {
             background: var(--equally-surface-hover);
-        }
-
-        &:focus-visible {
-            outline: 2px solid var(--equally-text);
-            outline-offset: 2px;
-        }
-
-        &[aria-pressed="true"] {
-            background: var(--equally-accent);
-            border-color: var(--equally-accent);
-            color: var(--equally-accent-fg);
-
-            & .equally-aid-icon {
-                color: var(--equally-accent-fg);
-            }
         }
     }
 
@@ -276,10 +252,9 @@
         flex-shrink: 0;
         justify-content: center;
         align-items: center;
-        width: 26px;
-        height: 26px;
+        width: 22px;
+        height: 22px;
         color: var(--equally-muted);
-        transition: color 0.15s ease;
 
         & svg {
             width: 18px;
@@ -288,17 +263,52 @@
     }
 
     & .equally-aid-label {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        width: 100%;
-        font-size: 11.5px;
-        font-weight: 600;
-        line-height: 1.25;
-        /* reserve space for exactly 2 lines so every card ends up the same
-           height regardless of how long its own label happens to be */
-        height: calc(11.5px * 1.25 * 2);
+        flex: 1;
+        min-width: 0;
+        font-size: 13.5px;
+        font-weight: 500;
+        color: var(--equally-text);
+    }
+
+    & .equally-switch {
+        position: relative;
+        flex-shrink: 0;
+        width: 42px;
+        height: 24px;
+        border: none;
+        border-radius: 999px;
+        background: var(--equally-track);
+        cursor: pointer;
+        transition: background 0.18s ease;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--equally-knob);
+            box-shadow: 0 1px 3px var(--equally-shadow);
+            transition:
+                transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.18s ease;
+        }
+
+        &[aria-pressed="true"] {
+            background: var(--equally-track-on);
+
+            &::after {
+                background: var(--equally-knob-on);
+                transform: translateX(18px);
+            }
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--equally-text);
+            outline-offset: 2px;
+        }
     }
 
     & .equally-row {
@@ -544,6 +554,35 @@
     /* Visually hidden but still reachable by screen readers, so nav mode
        keeps announcing "Link 3 of 21: About us" without showing a visible bar. */
     & .equally-nav-announcer {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    & .equally-read-highlight {
+        position: fixed;
+        z-index: 2147483646;
+        border-radius: 8px;
+        outline: 3px solid var(--equally-read-outline);
+        outline-offset: 2px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+
+        &.is-visible {
+            opacity: 1;
+        }
+    }
+
+    /* Visually hidden but still reachable by screen readers — announces the
+       "click any text to hear it" hint once read-aloud mode is turned on. */
+    & .equally-read-announcer {
         position: absolute;
         width: 1px;
         height: 1px;

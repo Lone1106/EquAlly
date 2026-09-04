@@ -40,6 +40,35 @@ html.equally-readable body * {
 }
 
 /*
+ * An accent outline + thicker underline on every link, in a fixed color so
+ * it reads consistently regardless of the host page's own palette (unlike
+ * forcing a text/background color, which can wash out against arbitrary
+ * site themes).
+ */
+html.equally-highlight-links a {
+    outline: 2px solid #ffbe0b !important;
+    outline-offset: 2px !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 3px !important;
+}
+
+html.equally-left-align body,
+html.equally-left-align body * {
+    text-align: left !important;
+}
+
+/*
+ * Read-aloud mode hijacks clicks on text-bearing elements (see
+ * ReadAloud.js), so give them a pointer cursor as a hint that they're
+ * clickable-to-read rather than just selectable text. Keep this list in
+ * sync with BLOCK_SELECTOR in ReadAloud.js.
+ */
+html.equally-read-aloud-active :is(p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption, td, th, dt, dd, a, button, label, summary, caption) {
+    cursor: pointer !important;
+}
+
+/*
  * A larger arrow cursor (black fill, white outline so it reads on any
  * background), applied everywhere via the universal selector so it also
  * overrides host-page rules that set `cursor` on specific elements.

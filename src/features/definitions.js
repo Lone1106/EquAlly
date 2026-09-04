@@ -68,6 +68,20 @@ export const features = [
     default: false,
   },
   {
+    id: "highlight-links",
+    type: "toggle",
+    section: "visual",
+    className: "equally-highlight-links",
+    default: false,
+  },
+  {
+    id: "left-align",
+    type: "toggle",
+    section: "visual",
+    className: "equally-left-align",
+    default: false,
+  },
+  {
     id: "big-cursor",
     type: "toggle",
     section: "reading",
@@ -93,6 +107,13 @@ export const features = [
     type: "toggle",
     section: "reading",
     className: "equally-nav-mode-active",
+    default: false,
+  },
+  {
+    id: "read-aloud",
+    type: "toggle",
+    section: "reading",
+    className: "equally-read-aloud-active",
     default: false,
   },
 ];

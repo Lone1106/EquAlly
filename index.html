@@ -197,6 +197,10 @@
                 margin-top: 10px;
             }
 
+            .text-center {
+                text-align: center;
+            }
+
             .muted-demo {
                 margin-top: 12px;
                 color: #b3b3b3;
@@ -223,6 +227,19 @@
                 to {
                     transform: rotate(360deg);
                 }
+            }
+
+            .audio-row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 14px;
+            }
+
+            .audio-status {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--muted-text);
             }
 
             .swatches {
@@ -313,19 +330,29 @@
                 margin-top: 14px;
             }
 
-            .lang-links a {
+            .lang-links button {
                 padding: 8px 16px;
                 border: 1px solid var(--border);
                 border-radius: 10px;
-                text-decoration: none;
+                background: transparent;
                 color: var(--text);
                 font-size: 13px;
                 font-weight: 600;
-                transition: background 0.15s ease;
+                cursor: pointer;
+                transition:
+                    background 0.15s ease,
+                    color 0.15s ease,
+                    border-color 0.15s ease;
             }
 
-            .lang-links a:hover {
+            .lang-links button:hover {
                 background: var(--bg);
+            }
+
+            .lang-links button[aria-pressed="true"] {
+                background: var(--accent);
+                border-color: var(--accent);
+                color: #fff;
             }
 
             footer {
@@ -341,68 +368,122 @@
         <header>
             <img src="/equally-logo-lockup.svg" alt="EquAlly" />
             <nav>
-                <a href="#showcase">Demo</a>
-                <a href="https://example.com" target="_blank" rel="noreferrer">External link</a>
+                <a href="#showcase" data-i18n="navDemo">Demo</a>
+                <a href="https://example.com" target="_blank" rel="noreferrer" data-i18n="navExternal"
+                    >External link</a
+                >
             </nav>
         </header>
 
         <div class="page">
             <section class="hero">
-                <span class="eyebrow">Personal project · work in progress</span>
-                <h1>Accessible websites, one script tag away</h1>
-                <p>
+                <span class="eyebrow" data-i18n="heroEyebrow">Personal project · work in progress</span>
+                <h1 data-i18n="heroHeading">Accessible websites, one script tag away</h1>
+                <p data-i18n="heroBody">
                     EquAlly is a lightweight accessibility widget you drop into any site. It adds a floating button
                     that lets visitors turn on high contrast, a dyslexia-friendly font, larger text, reduced motion,
                     and more — without you touching your site's design.
                 </p>
                 <div class="install">
                     <code id="install-snippet">&lt;script src="equally.js"&gt;&lt;/script&gt;</code>
-                    <button type="button" id="copy-btn">Copy</button>
+                    <button type="button" id="copy-btn" data-i18n="copyBtn">Copy</button>
                 </div>
             </section>
 
             <section id="showcase" class="showcase-intro">
-                <span class="eyebrow">Live showcase</span>
-                <h2>Try every mode below</h2>
-                <p>Open the accessibility button in the corner and toggle each setting — the cards below react live.</p>
+                <span class="eyebrow" data-i18n="showcaseEyebrow">Live showcase</span>
+                <h2 data-i18n="showcaseHeading">Try every mode below</h2>
+                <p data-i18n="showcaseBody">
+                    Open the accessibility button in the corner and toggle each setting — the cards below react live.
+                </p>
             </section>
 
             <main id="main">
                 <section class="card">
-                    <span class="eyebrow">Feature: High contrast</span>
-                    <h2>Low-contrast text</h2>
-                    <p>The line below is styled with deliberately poor contrast.</p>
-                    <p class="muted-demo">
+                    <span class="eyebrow" data-i18n="cardContrastEyebrow">Feature: High contrast</span>
+                    <h2 data-i18n="cardContrastHeading">Low-contrast text</h2>
+                    <p data-i18n="cardContrastBody1">The line below is styled with deliberately poor contrast.</p>
+                    <p class="muted-demo" data-i18n="cardContrastBody2">
                         Turn on "High contrast" in the widget menu and this should become much easier to read.
                     </p>
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: Seizure safe</span>
-                    <h2>Loading indicator</h2>
-                    <p>This spins constantly. Turning on "Seizure safe" in the widget should freeze it in place.</p>
+                    <span class="eyebrow" data-i18n="cardSeizureEyebrow">Feature: Seizure safe</span>
+                    <h2 data-i18n="cardSeizureHeading">Loading indicator &amp; autoplaying clip</h2>
+                    <p data-i18n="cardSeizureBody">
+                        This spins constantly, and a silent clip autoplays on loop below. Turning on "Seizure safe"
+                        in the widget should freeze the spinner and pause the clip.
+                    </p>
                     <div class="spinner-row">
                         <div class="spinner" aria-hidden="true"></div>
-                        <span>Spinning…</span>
+                        <span data-i18n="cardSeizureSpinning">Spinning…</span>
+                    </div>
+                    <div class="audio-row">
+                        <audio id="demo-audio" autoplay loop muted>
+                            <source
+                                src="data:audio/wav;base64,UklGRvQHAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YdAHAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA=="
+                                type="audio/wav"
+                            />
+                        </audio>
+                        <span id="audio-status" class="audio-status"></span>
                     </div>
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: Color blind mode</span>
-                    <h2>Color swatches</h2>
-                    <p>Turning on "Color blind mode" should render these in greyscale.</p>
+                    <span class="eyebrow" data-i18n="cardColorEyebrow">Feature: Color blind mode</span>
+                    <h2 data-i18n="cardColorHeading">Color swatches</h2>
+                    <p data-i18n="cardColorBody">Turning on "Color blind mode" should render these in greyscale.</p>
                     <div class="swatches">
-                        <div class="swatch"><div class="chip red"></div><span>Red</span></div>
-                        <div class="swatch"><div class="chip green"></div><span>Green</span></div>
-                        <div class="swatch"><div class="chip blue"></div><span>Blue</span></div>
-                        <div class="swatch"><div class="chip yellow"></div><span>Yellow</span></div>
+                        <div class="swatch">
+                            <div class="chip red"></div>
+                            <span data-i18n="swatchRed">Red</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="chip green"></div>
+                            <span data-i18n="swatchGreen">Green</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="chip blue"></div>
+                            <span data-i18n="swatchBlue">Blue</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="chip yellow"></div>
+                            <span data-i18n="swatchYellow">Yellow</span>
+                        </div>
                     </div>
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: Font size · Line height · Letter spacing</span>
-                    <h2>Longer paragraph</h2>
+                    <span class="eyebrow" data-i18n="cardLinksEyebrow">Feature: Highlight links</span>
+                    <h2 data-i18n="cardLinksHeading">Link highlighting</h2>
+                    <p data-i18n="cardLinksBody">
+                        Turn on "Highlight links" in the widget menu — every link on the page, including the ones
+                        below, should get a bright outline and a thicker underline.
+                    </p>
                     <p>
+                        <a href="#showcase" data-i18n="cardLinksSampleA">A sample link right here</a> ·
+                        <a href="https://example.com" target="_blank" rel="noreferrer" data-i18n="cardLinksSampleB"
+                            >And another one</a
+                        >
+                    </p>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow" data-i18n="cardAlignEyebrow">Feature: Left-aligned text</span>
+                    <h2 data-i18n="cardAlignHeading">Centered text block</h2>
+                    <p class="text-center" data-i18n="cardAlignBody">
+                        This paragraph is deliberately center-aligned. Turn on "Left-aligned text" in the widget menu
+                        to force it back to the left, which is often easier to track line by line.
+                    </p>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow" data-i18n="cardTypeEyebrow"
+                        >Feature: Font size · Line height · Letter spacing</span
+                    >
+                    <h2 data-i18n="cardTypeHeading">Longer paragraph</h2>
+                    <p data-i18n="cardTypeBody">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer nec sapien
                         vitae risus commodo sagittis. Praesent vestibulum, nunc at feugiat aliquet, sapien lorem
                         dictum sem, ut gravida augue erat non nulla. These steppers should apply here instantly,
@@ -411,45 +492,62 @@
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">General interaction</span>
-                    <h2>Sample form</h2>
-                    <p>Checks that the widget doesn't interfere with normal page interaction.</p>
+                    <span class="eyebrow" data-i18n="cardFormEyebrow">General interaction</span>
+                    <h2 data-i18n="cardFormHeading">Sample form</h2>
+                    <p data-i18n="cardFormBody">Checks that the widget doesn't interfere with normal page interaction.</p>
                     <form onsubmit="return false">
-                        <input type="text" placeholder="Type something…" aria-label="Sample text input" />
-                        <button type="submit">Submit</button>
+                        <input
+                            type="text"
+                            data-i18n-placeholder="cardFormPlaceholder"
+                            data-i18n-aria="cardFormAria"
+                            placeholder="Type something…"
+                            aria-label="Sample text input"
+                        />
+                        <button type="submit" data-i18n="cardFormSubmit">Submit</button>
                     </form>
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: New-tab link tooltip</span>
-                    <h2>External links</h2>
-                    <p>
+                    <span class="eyebrow" data-i18n="cardTooltipEyebrow">Feature: New-tab link tooltip</span>
+                    <h2 data-i18n="cardTooltipHeading">External links</h2>
+                    <p data-i18n="cardTooltipBody">
                         Hover or focus (Tab) any of these — a small tooltip should blend in above the link warning
                         that it opens in a new tab.
                     </p>
                     <p>
-                        <a href="https://example.com" target="_blank" rel="noreferrer">Plain external link</a> ·
-                        <a href="https://example.org" target="_blank" rel="noreferrer">Another one, further right</a>
-                        · <a href="https://example.net" target="_blank" rel="noreferrer">And a third</a> ·
-                        <a href="#showcase">Normal internal link (no tooltip)</a>
+                        <a href="https://example.com" target="_blank" rel="noreferrer" data-i18n="linkPlain"
+                            >Plain external link</a
+                        >
+                        ·
+                        <a href="https://example.org" target="_blank" rel="noreferrer" data-i18n="linkAnother"
+                            >Another one, further right</a
+                        >
+                        ·
+                        <a href="https://example.net" target="_blank" rel="noreferrer" data-i18n="linkThird"
+                            >And a third</a
+                        >
+                        ·
+                        <a href="#showcase" data-i18n="linkInternal">Normal internal link (no tooltip)</a>
                     </p>
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: Large cursor</span>
-                    <h2>Cursor test area</h2>
-                    <p>Turn on "Large cursor" in the widget menu, then move your mouse over this card.</p>
+                    <span class="eyebrow" data-i18n="cardCursorEyebrow">Feature: Large cursor</span>
+                    <h2 data-i18n="cardCursorHeading">Cursor test area</h2>
+                    <p data-i18n="cardCursorBody">
+                        Turn on "Large cursor" in the widget menu, then move your mouse over this card.
+                    </p>
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: Reading guide &amp; Reading mask</span>
-                    <h2>Reading aids</h2>
-                    <p>
+                    <span class="eyebrow" data-i18n="cardReadingEyebrow">Feature: Reading guide &amp; Reading mask</span>
+                    <h2 data-i18n="cardReadingHeading">Reading aids</h2>
+                    <p data-i18n="cardReadingBody1">
                         Turn on "Reading guide" for a ruler that follows your mouse vertically, or "Reading mask" for
                         an overlay that dims everything except a band around the cursor. Move your mouse over the
                         paragraph below to try either one.
                     </p>
-                    <p>
+                    <p data-i18n="cardReadingBody2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer nec sapien
                         vitae risus commodo sagittis. Praesent vestibulum, nunc at feugiat aliquet, sapien lorem
                         dictum sem, ut gravida augue erat non nulla. Curabitur nec neque ac purus dictum sagittis.
@@ -460,52 +558,351 @@
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: Navigation mode</span>
-                    <h2>Jump between links, buttons &amp; headings</h2>
-                    <p>
+                    <span class="eyebrow" data-i18n="cardReadAloudEyebrow">Feature: Read aloud</span>
+                    <h2 data-i18n="cardReadAloudHeading">Click to listen</h2>
+                    <p data-i18n="cardReadAloudBody1">
+                        Turn on "Read aloud" in the widget menu, then click this paragraph (or any paragraph,
+                        heading, or link on the page) to hear it read out loud using your browser's built-in speech
+                        synthesis.
+                    </p>
+                    <p data-i18n="cardReadAloudBody2">
+                        This second paragraph is here so you have something else to click once the first one
+                        finishes.
+                    </p>
+                </section>
+
+                <section class="card">
+                    <span class="eyebrow" data-i18n="cardNavEyebrow">Feature: Navigation mode</span>
+                    <h2 data-i18n="cardNavHeading">Jump between links, buttons &amp; headings</h2>
+                    <p data-i18n="cardNavBody">
                         Turn on "Navigation mode" in the widget menu, then use the arrow keys (or Tab / Shift+Tab) to
                         step through every link, button, and heading on the page. A blue outline tracks the current
                         stop, and screen readers hear an announcement for each one — try it on the sample link and
                         button below.
                     </p>
-                    <p><a href="#showcase">A sample link</a> · <button type="button">A sample button</button></p>
+                    <p>
+                        <a href="#showcase" data-i18n="navSampleLink">A sample link</a> ·
+                        <button type="button" data-i18n="navSampleButton">A sample button</button>
+                    </p>
                 </section>
 
                 <section class="card">
-                    <span class="eyebrow">Feature: Language auto-detect</span>
-                    <h2>Page language</h2>
-                    <p>
+                    <span class="eyebrow" data-i18n="cardLangEyebrow">Feature: Language auto-detect</span>
+                    <h2 data-i18n="cardLangHeading">Page language</h2>
+                    <p data-i18n-html="cardLangBody">
                         The widget's own menu has an EN/DE switch, but it also auto-detects from this page's declared
-                        language on first visit. These links set <code>&lt;html lang&gt;</code> so you can test that
-                        default (a language picked manually in the widget menu is remembered and takes priority after
-                        that).
+                        language on first visit (a language picked manually in the widget menu is remembered and
+                        takes priority after that). The buttons below switch this whole demo page's language and set
+                        <code>&lt;html lang&gt;</code> to match, so you can test that default — clear the widget's
+                        stored language first if you want to see auto-detect kick in.
                     </p>
                     <div class="lang-links">
-                        <a href="?lang=en">Set page to EN</a>
-                        <a href="?lang=de">Set page to DE</a>
+                        <button type="button" class="lang-btn" data-lang="en" data-i18n="langBtnEn" aria-pressed="true">
+                            Switch page to EN
+                        </button>
+                        <button type="button" class="lang-btn" data-lang="de" data-i18n="langBtnDe" aria-pressed="false">
+                            Switch page to DE
+                        </button>
                     </div>
                 </section>
             </main>
         </div>
 
-        <footer>EquAlly demo &amp; local test page — not part of the shipped widget bundle.</footer>
+        <footer data-i18n="footer">EquAlly demo &amp; local test page — not part of the shipped widget bundle.</footer>
 
         <div id="app"></div>
         <script>
-            const lang = new URLSearchParams(location.search).get("lang");
-            if (lang) document.documentElement.lang = lang;
+            const T = {
+                en: {
+                    navDemo: "Demo",
+                    navExternal: "External link",
+                    heroEyebrow: "Personal project · work in progress",
+                    heroHeading: "Accessible websites, one script tag away",
+                    heroBody:
+                        "EquAlly is a lightweight accessibility widget you drop into any site. It adds a floating button that lets visitors turn on high contrast, a dyslexia-friendly font, larger text, reduced motion, and more — without you touching your site's design.",
+                    copyBtn: "Copy",
+                    copyBtnDone: "Copied!",
+                    copyBtnFail: "Couldn't copy",
+                    showcaseEyebrow: "Live showcase",
+                    showcaseHeading: "Try every mode below",
+                    showcaseBody:
+                        "Open the accessibility button in the corner and toggle each setting — the cards below react live.",
 
+                    cardContrastEyebrow: "Feature: High contrast",
+                    cardContrastHeading: "Low-contrast text",
+                    cardContrastBody1: "The line below is styled with deliberately poor contrast.",
+                    cardContrastBody2:
+                        'Turn on "High contrast" in the widget menu and this should become much easier to read.',
+
+                    cardSeizureEyebrow: "Feature: Seizure safe",
+                    cardSeizureHeading: "Loading indicator & autoplaying clip",
+                    cardSeizureBody:
+                        'This spins constantly, and a silent clip autoplays on loop below. Turning on "Seizure safe" in the widget should freeze the spinner and pause the clip.',
+                    cardSeizureSpinning: "Spinning…",
+                    audioPlaying: "🔊 Autoplaying",
+                    audioPaused: "⏸ Paused by Seizure safe",
+                    audioBlocked: "⏸ Not playing (your browser blocked autoplay)",
+
+                    cardColorEyebrow: "Feature: Color blind mode",
+                    cardColorHeading: "Color swatches",
+                    cardColorBody: 'Turning on "Color blind mode" should render these in greyscale.',
+                    swatchRed: "Red",
+                    swatchGreen: "Green",
+                    swatchBlue: "Blue",
+                    swatchYellow: "Yellow",
+
+                    cardLinksEyebrow: "Feature: Highlight links",
+                    cardLinksHeading: "Link highlighting",
+                    cardLinksBody:
+                        'Turn on "Highlight links" in the widget menu — every link on the page, including the ones below, should get a bright outline and a thicker underline.',
+                    cardLinksSampleA: "A sample link right here",
+                    cardLinksSampleB: "And another one",
+
+                    cardAlignEyebrow: "Feature: Left-aligned text",
+                    cardAlignHeading: "Centered text block",
+                    cardAlignBody:
+                        'This paragraph is deliberately center-aligned. Turn on "Left-aligned text" in the widget menu to force it back to the left, which is often easier to track line by line.',
+
+                    cardTypeEyebrow: "Feature: Font size · Line height · Letter spacing",
+                    cardTypeHeading: "Longer paragraph",
+                    cardTypeBody:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer nec sapien vitae risus commodo sagittis. Praesent vestibulum, nunc at feugiat aliquet, sapien lorem dictum sem, ut gravida augue erat non nulla. These steppers should apply here instantly, without a page reload.",
+
+                    cardFormEyebrow: "General interaction",
+                    cardFormHeading: "Sample form",
+                    cardFormBody: "Checks that the widget doesn't interfere with normal page interaction.",
+                    cardFormPlaceholder: "Type something…",
+                    cardFormAria: "Sample text input",
+                    cardFormSubmit: "Submit",
+
+                    cardTooltipEyebrow: "Feature: New-tab link tooltip",
+                    cardTooltipHeading: "External links",
+                    cardTooltipBody:
+                        "Hover or focus (Tab) any of these — a small tooltip should blend in above the link warning that it opens in a new tab.",
+                    linkPlain: "Plain external link",
+                    linkAnother: "Another one, further right",
+                    linkThird: "And a third",
+                    linkInternal: "Normal internal link (no tooltip)",
+
+                    cardCursorEyebrow: "Feature: Large cursor",
+                    cardCursorHeading: "Cursor test area",
+                    cardCursorBody: 'Turn on "Large cursor" in the widget menu, then move your mouse over this card.',
+
+                    cardReadingEyebrow: "Feature: Reading guide & Reading mask",
+                    cardReadingHeading: "Reading aids",
+                    cardReadingBody1:
+                        'Turn on "Reading guide" for a ruler that follows your mouse vertically, or "Reading mask" for an overlay that dims everything except a band around the cursor. Move your mouse over the paragraph below to try either one.',
+                    cardReadingBody2:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer nec sapien vitae risus commodo sagittis. Praesent vestibulum, nunc at feugiat aliquet, sapien lorem dictum sem, ut gravida augue erat non nulla. Curabitur nec neque ac purus dictum sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec euismod, nisl eget sagittis dictum, nunc justo tincidunt nibh, at consequat velit lorem sit amet sapien.",
+
+                    cardReadAloudEyebrow: "Feature: Read aloud",
+                    cardReadAloudHeading: "Click to listen",
+                    cardReadAloudBody1:
+                        'Turn on "Read aloud" in the widget menu, then click this paragraph (or any paragraph, heading, or link on the page) to hear it read out loud using your browser\'s built-in speech synthesis.',
+                    cardReadAloudBody2:
+                        "This second paragraph is here so you have something else to click once the first one finishes.",
+
+                    cardNavEyebrow: "Feature: Navigation mode",
+                    cardNavHeading: "Jump between links, buttons & headings",
+                    cardNavBody:
+                        'Turn on "Navigation mode" in the widget menu, then use the arrow keys (or Tab / Shift+Tab) to step through every link, button, and heading on the page. A blue outline tracks the current stop, and screen readers hear an announcement for each one — try it on the sample link and button below.',
+                    navSampleLink: "A sample link",
+                    navSampleButton: "A sample button",
+
+                    cardLangEyebrow: "Feature: Language auto-detect",
+                    cardLangHeading: "Page language",
+                    cardLangBody:
+                        "The widget's own menu has an EN/DE switch, but it also auto-detects from this page's declared language on first visit (a language picked manually in the widget menu is remembered and takes priority after that). The buttons below switch this whole demo page's language and set <code>&lt;html lang&gt;</code> to match, so you can test that default — clear the widget's stored language first if you want to see auto-detect kick in.",
+                    langBtnEn: "Switch page to EN",
+                    langBtnDe: "Switch page to DE",
+
+                    footer: "EquAlly demo & local test page — not part of the shipped widget bundle.",
+                },
+                de: {
+                    navDemo: "Demo",
+                    navExternal: "Externer Link",
+                    heroEyebrow: "Privates Projekt · in Arbeit",
+                    heroHeading: "Barrierefreie Websites, ein Script-Tag entfernt",
+                    heroBody:
+                        "EquAlly ist ein schlankes Barrierefreiheits-Widget, das du in jede Website einbindest. Es fügt einen schwebenden Button hinzu, mit dem Besucher hohen Kontrast, eine legasthenie-freundliche Schrift, größeren Text, reduzierte Bewegung und mehr aktivieren können — ohne dass du das Design deiner Seite anfassen musst.",
+                    copyBtn: "Kopieren",
+                    copyBtnDone: "Kopiert!",
+                    copyBtnFail: "Kopieren fehlgeschlagen",
+                    showcaseEyebrow: "Live-Showcase",
+                    showcaseHeading: "Probiere jeden Modus aus",
+                    showcaseBody:
+                        "Öffne den Barrierefreiheits-Button in der Ecke und schalte jede Einstellung um — die Karten unten reagieren live.",
+
+                    cardContrastEyebrow: "Feature: Hoher Kontrast",
+                    cardContrastHeading: "Kontrastarmer Text",
+                    cardContrastBody1: "Die Zeile unten ist absichtlich mit schlechtem Kontrast gestaltet.",
+                    cardContrastBody2:
+                        'Schalte „Hoher Kontrast“ im Widget-Menü ein — dieser Text sollte danach deutlich leichter lesbar sein.',
+
+                    cardSeizureEyebrow: "Feature: Reizarmer Modus",
+                    cardSeizureHeading: "Ladeanimation & automatisch abspielender Clip",
+                    cardSeizureBody:
+                        'Diese Animation dreht sich ununterbrochen, und darunter läuft ein stummer Clip automatisch in Schleife. Schaltest du „Reizarmer Modus“ im Widget ein, sollten sich Animation und Clip anhalten.',
+                    cardSeizureSpinning: "Dreht sich…",
+                    audioPlaying: "🔊 Spielt automatisch ab",
+                    audioPaused: "⏸ Von „Reizarmer Modus“ pausiert",
+                    audioBlocked: "⏸ Spielt nicht ab (Browser hat Autoplay blockiert)",
+
+                    cardColorEyebrow: "Feature: Farbenblind-Modus",
+                    cardColorHeading: "Farbmuster",
+                    cardColorBody: 'Der „Farbenblind-Modus“ sollte diese in Graustufen darstellen.',
+                    swatchRed: "Rot",
+                    swatchGreen: "Grün",
+                    swatchBlue: "Blau",
+                    swatchYellow: "Gelb",
+
+                    cardLinksEyebrow: "Feature: Links hervorheben",
+                    cardLinksHeading: "Link-Hervorhebung",
+                    cardLinksBody:
+                        'Schalte „Links hervorheben“ im Widget-Menü ein — jeder Link auf der Seite, auch die unten, sollte einen kräftigen Rahmen und eine dickere Unterstreichung bekommen.',
+                    cardLinksSampleA: "Ein Beispiel-Link direkt hier",
+                    cardLinksSampleB: "Und noch einer",
+
+                    cardAlignEyebrow: "Feature: Linksbündiger Text",
+                    cardAlignHeading: "Zentrierter Textblock",
+                    cardAlignBody:
+                        'Dieser Absatz ist absichtlich zentriert. Schalte „Linksbündiger Text“ im Widget-Menü ein, um ihn wieder linksbündig zu erzwingen — das lässt sich oft leichter zeilenweise verfolgen.',
+
+                    cardTypeEyebrow: "Feature: Schriftgröße · Zeilenhöhe · Buchstabenabstand",
+                    cardTypeHeading: "Längerer Absatz",
+                    cardTypeBody:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer nec sapien vitae risus commodo sagittis. Praesent vestibulum, nunc at feugiat aliquet, sapien lorem dictum sem, ut gravida augue erat non nulla. Diese Regler sollten sich hier sofort auswirken, ohne dass die Seite neu lädt.",
+
+                    cardFormEyebrow: "Allgemeine Interaktion",
+                    cardFormHeading: "Beispiel-Formular",
+                    cardFormBody: "Prüft, dass das Widget normale Seiteninteraktion nicht stört.",
+                    cardFormPlaceholder: "Etwas eingeben…",
+                    cardFormAria: "Beispiel-Texteingabe",
+                    cardFormSubmit: "Absenden",
+
+                    cardTooltipEyebrow: "Feature: Neuer-Tab-Link-Tooltip",
+                    cardTooltipHeading: "Externe Links",
+                    cardTooltipBody:
+                        "Fahre mit der Maus darüber oder fokussiere (Tab) einen dieser Links — ein kleiner Tooltip sollte darüber einblenden und warnen, dass er in einem neuen Tab öffnet.",
+                    linkPlain: "Einfacher externer Link",
+                    linkAnother: "Noch einer, weiter rechts",
+                    linkThird: "Und ein dritter",
+                    linkInternal: "Normaler interner Link (kein Tooltip)",
+
+                    cardCursorEyebrow: "Feature: Großer Mauszeiger",
+                    cardCursorHeading: "Testbereich für den Mauszeiger",
+                    cardCursorBody:
+                        'Schalte „Großer Mauszeiger“ im Widget-Menü ein und bewege die Maus über diese Karte.',
+
+                    cardReadingEyebrow: "Feature: Leselineal & Lesemaske",
+                    cardReadingHeading: "Lesehilfen",
+                    cardReadingBody1:
+                        'Schalte „Leselineal“ für ein Lineal ein, das der Maus vertikal folgt, oder „Lesemaske“ für eine Abdunklung, die alles außer einem Band um den Mauszeiger ausblendet. Bewege die Maus über den Absatz unten, um beides auszuprobieren.',
+                    cardReadingBody2:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer nec sapien vitae risus commodo sagittis. Praesent vestibulum, nunc at feugiat aliquet, sapien lorem dictum sem, ut gravida augue erat non nulla. Curabitur nec neque ac purus dictum sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec euismod, nisl eget sagittis dictum, nunc justo tincidunt nibh, at consequat velit lorem sit amet sapien.",
+
+                    cardReadAloudEyebrow: "Feature: Vorlesen",
+                    cardReadAloudHeading: "Zum Anhören klicken",
+                    cardReadAloudBody1:
+                        'Schalte „Vorlesen“ im Widget-Menü ein und klicke dann diesen Absatz (oder einen beliebigen Absatz, eine Überschrift oder einen Link auf der Seite) an, um ihn über die eingebaute Sprachausgabe deines Browsers vorlesen zu lassen.',
+                    cardReadAloudBody2:
+                        "Dieser zweite Absatz ist da, damit du gleich noch etwas anderes anklicken kannst, sobald der erste fertig vorgelesen ist.",
+
+                    cardNavEyebrow: "Feature: Navigationsmodus",
+                    cardNavHeading: "Zwischen Links, Buttons & Überschriften springen",
+                    cardNavBody:
+                        'Schalte „Navigationsmodus“ im Widget-Menü ein und benutze dann die Pfeiltasten (oder Tab / Umschalt+Tab), um durch jeden Link, Button und jede Überschrift der Seite zu springen. Ein blauer Rahmen markiert die aktuelle Position, und Screenreader kündigen jede Station an — probiere es am Beispiel-Link und -Button unten aus.',
+                    navSampleLink: "Ein Beispiel-Link",
+                    navSampleButton: "Ein Beispiel-Button",
+
+                    cardLangEyebrow: "Feature: Sprach-Autoerkennung",
+                    cardLangHeading: "Seitensprache",
+                    cardLangBody:
+                        'Das Widget-Menü selbst hat einen EN/DE-Umschalter, erkennt die Sprache beim ersten Besuch aber auch automatisch anhand der auf dieser Seite hinterlegten Sprache (eine im Widget-Menü manuell gewählte Sprache wird gemerkt und hat danach Vorrang). Die Buttons unten schalten die Sprache dieser gesamten Demo-Seite um und setzen passend dazu <code>&lt;html lang&gt;</code> — so kannst du diesen Standardfall testen. Lösche zuerst die gespeicherte Sprache des Widgets, wenn du die Autoerkennung live sehen willst.',
+                    langBtnEn: "Seite auf EN umschalten",
+                    langBtnDe: "Seite auf DE umschalten",
+
+                    footer: "EquAlly-Demo & lokale Testseite — nicht Teil des ausgelieferten Widget-Bundles.",
+                },
+            };
+
+            let currentLang = "en";
+            const langButtons = document.querySelectorAll(".lang-links button");
             const copyBtn = document.getElementById("copy-btn");
+            const demoAudio = document.getElementById("demo-audio");
+            const audioStatus = document.getElementById("audio-status");
+
+            function updateAudioStatus() {
+                if (!demoAudio.paused) {
+                    audioStatus.textContent = T[currentLang].audioPlaying;
+                } else if (document.documentElement.classList.contains("equally-reduce-motion")) {
+                    // Paused because "Seizure safe" is on (AutoplayGuard did this).
+                    audioStatus.textContent = T[currentLang].audioPaused;
+                } else {
+                    // Paused for some other reason — most likely the browser's own
+                    // autoplay policy, which is out of the widget's control.
+                    audioStatus.textContent = T[currentLang].audioBlocked;
+                }
+            }
+
+            function applyLang(lang) {
+                currentLang = T[lang] ? lang : "en";
+                document.documentElement.lang = currentLang;
+                const dict = T[currentLang];
+
+                document.querySelectorAll("[data-i18n]").forEach((el) => {
+                    const value = dict[el.dataset.i18n];
+                    if (value !== undefined) el.textContent = value;
+                });
+                document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+                    const value = dict[el.dataset.i18nHtml];
+                    if (value !== undefined) el.innerHTML = value;
+                });
+                document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+                    const value = dict[el.dataset.i18nPlaceholder];
+                    if (value !== undefined) el.placeholder = value;
+                });
+                document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+                    const value = dict[el.dataset.i18nAria];
+                    if (value !== undefined) el.setAttribute("aria-label", value);
+                });
+
+                langButtons.forEach((btn) => {
+                    btn.setAttribute("aria-pressed", String(btn.dataset.lang === currentLang));
+                });
+
+                copyBtn.textContent = dict.copyBtn;
+                updateAudioStatus();
+
+                const url = new URL(location.href);
+                url.searchParams.set("lang", currentLang);
+                history.replaceState(null, "", url);
+            }
+
+            langButtons.forEach((btn) => btn.addEventListener("click", () => applyLang(btn.dataset.lang)));
+            demoAudio.addEventListener("play", updateAudioStatus);
+            demoAudio.addEventListener("pause", updateAudioStatus);
+            // Calling .pause() on already-paused media (e.g. autoplay was already
+            // blocked by the browser) doesn't fire a "pause" event, so also watch
+            // the widget's own "equally-reduce-motion" class directly.
+            new MutationObserver(updateAudioStatus).observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ["class"],
+            });
+
             copyBtn.addEventListener("click", async () => {
                 const text = document.getElementById("install-snippet").textContent;
                 try {
                     await navigator.clipboard.writeText(text);
-                    copyBtn.textContent = "Copied!";
+                    copyBtn.textContent = T[currentLang].copyBtnDone;
                 } catch {
-                    copyBtn.textContent = "Couldn't copy";
+                    copyBtn.textContent = T[currentLang].copyBtnFail;
                 }
-                setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+                setTimeout(() => (copyBtn.textContent = T[currentLang].copyBtn), 1500);
             });
+
+            const initialLang = new URLSearchParams(location.search).get("lang") || document.documentElement.lang;
+            applyLang(initialLang);
         </script>
         <script type="module" src="/src/main.js"></script>
     </body>

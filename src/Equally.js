@@ -10,6 +10,8 @@ import { LinkTooltip } from "./components/LinkTooltip.js";
 import { ReadingGuide } from "./components/ReadingGuide.js";
 import { ReadingMask } from "./components/ReadingMask.js";
 import { NavigationMode } from "./components/NavigationMode.js";
+import { AutoplayGuard } from "./components/AutoplayGuard.js";
+import { ReadAloud } from "./components/ReadAloud.js";
 
 export class Equally {
   constructor(config = {}) {
@@ -56,10 +58,12 @@ export class Equally {
         skipLink.setLocale(code);
         tooltip.setLocale(code);
         navigationMode.setLocale(code);
+        readAloud.setLocale(code);
       },
     });
     const readingGuide = new ReadingGuide();
     const readingMask = new ReadingMask();
+    const autoplayGuard = new AutoplayGuard();
 
     const wrapper = panel.render();
     const navigationMode = new NavigationMode({
@@ -67,17 +71,21 @@ export class Equally {
       exclude: wrapper,
       onExit: () => this.manager.toggle("nav-mode"),
     });
+    const readAloud = new ReadAloud({ locale, exclude: wrapper });
 
     wrapper.appendChild(tooltip.render());
     wrapper.appendChild(readingGuide.render());
     wrapper.appendChild(readingMask.render());
     wrapper.appendChild(navigationMode.render());
+    wrapper.appendChild(readAloud.render());
     this.host.root.appendChild(wrapper);
     tooltip.mount();
 
     this.#syncOverlay("reading-guide", readingGuide);
     this.#syncOverlay("reading-mask", readingMask);
     this.#syncOverlay("nav-mode", navigationMode);
+    this.#syncOverlay("reduce-motion", autoplayGuard);
+    this.#syncOverlay("read-aloud", readAloud);
   }
 
   #syncOverlay(id, controller) {

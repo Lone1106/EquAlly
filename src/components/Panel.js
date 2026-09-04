@@ -140,13 +140,13 @@ export class Panel {
 
     this.sectionVisualEl = this.#createSectionLabel();
     this.bodyEl.appendChild(this.sectionVisualEl);
-    this.visualGridEl = this.#createAidGrid(visualAids);
-    this.bodyEl.appendChild(this.visualGridEl);
+    this.visualListEl = this.#createAidList(visualAids);
+    this.bodyEl.appendChild(this.visualListEl);
 
     this.sectionReadingEl = this.#createSectionLabel();
     this.bodyEl.appendChild(this.sectionReadingEl);
-    this.readingGridEl = this.#createAidGrid(readingAids);
-    this.bodyEl.appendChild(this.readingGridEl);
+    this.readingListEl = this.#createAidList(readingAids);
+    this.bodyEl.appendChild(this.readingListEl);
 
     this.resetEl = document.createElement("button");
     this.resetEl.type = "button";
@@ -236,25 +236,22 @@ export class Panel {
     for (const row of this.rows.values()) row.relabel(t);
   }
 
-  #createAidGrid(aidFeatures) {
-    const grid = document.createElement("div");
-    grid.className = "equally-aid-grid";
+  #createAidList(aidFeatures) {
+    const list = document.createElement("div");
+    list.className = "equally-aid-list";
 
     for (const feature of aidFeatures) {
-      const card = this.#createAidCard(feature);
-      this.rows.set(feature.id, card);
-      grid.appendChild(card.el);
+      const row = this.#createAidRow(feature);
+      this.rows.set(feature.id, row);
+      list.appendChild(row.el);
     }
 
-    return grid;
+    return list;
   }
 
-  #createAidCard(feature) {
-    const card = document.createElement("button");
-    card.type = "button";
-    card.className = "equally-aid-card";
-    card.setAttribute("aria-pressed", String(this.manager.get(feature.id)));
-    card.addEventListener("click", () => this.manager.toggle(feature.id));
+  #createAidRow(feature) {
+    const row = document.createElement("div");
+    row.className = "equally-row equally-aid-row";
 
     const iconEl = document.createElement("span");
     iconEl.className = "equally-aid-icon";
@@ -264,13 +261,21 @@ export class Panel {
     const labelEl = document.createElement("span");
     labelEl.className = "equally-aid-label";
 
-    card.append(iconEl, labelEl);
+    const switchEl = document.createElement("button");
+    switchEl.type = "button";
+    switchEl.className = "equally-switch";
+    switchEl.setAttribute("aria-pressed", String(this.manager.get(feature.id)));
+    switchEl.addEventListener("click", () => this.manager.toggle(feature.id));
+
+    row.append(iconEl, labelEl, switchEl);
 
     return {
-      el: card,
-      sync: () => card.setAttribute("aria-pressed", String(this.manager.get(feature.id))),
+      el: row,
+      sync: () => switchEl.setAttribute("aria-pressed", String(this.manager.get(feature.id))),
       relabel: (t) => {
-        labelEl.textContent = t.featureLabel(feature.id);
+        const label = t.featureLabel(feature.id);
+        labelEl.textContent = label;
+        switchEl.setAttribute("aria-label", label);
       },
     };
   }
