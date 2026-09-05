@@ -1,7 +1,7 @@
 import { createTranslator } from "../i18n/index.js";
 
 const BLOCK_SELECTOR =
-  "p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption, td, th, dt, dd, a, button, label, summary, caption";
+  "p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption, td, th, dt, dd, a, button, label, summary, caption, span";
 const HIGHLIGHT_PAD = 4;
 const LANG_MAP = { en: "en-US", de: "de-DE" };
 
